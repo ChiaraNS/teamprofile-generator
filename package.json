@@ -8,8 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:ChiaraNS/teamprofile-generator.git"
+    "url": "git+ssh://git@github.com/ChiaraNS/teamprofile-generator.git"
   },
   "author": "Chiara Schafer",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChiaraNS/teamprofile-generator/issues"
+  },
+  "homepage": "https://github.com/ChiaraNS/teamprofile-generator#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [
+    "team"
+  ]
 }

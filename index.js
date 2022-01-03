@@ -1,19 +1,11 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const Employee = require("./lib/employee");
+//const Employee = require("./lib/employee");
 const Engineer = require("./lib/engineer");
 const Manager = require("./lib/manager");
 const Intern = require("./lib/intern");
 const teamList = [];
-// THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-// WHEN I enter the team manager’s name, employee ID, email address, and office number
-// THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-// WHEN I select the engineer option
-// THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-// WHEN I select the intern option
-// THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
-// WHEN I decide to finish building my team
-// THEN I exit the application, and the HTML is generated
+
 
 function managerPrompt() {
     inquirer.prompt(
@@ -40,6 +32,15 @@ function managerPrompt() {
             },
         ]
     )
+    .then(function(answers) {
+        let name = answers.managerName;
+        let id = answers.managerId;
+        let email = answers.managerEmail;
+        let number = answers.mangerNum;
+        let manager = new Manager(name, id, email, number);
+        teamList.push(manager);
+        memberPrompt();
+    })
 }
 
 function engineerPrompt() {
@@ -67,7 +68,15 @@ function engineerPrompt() {
             },
         ]
     )
-}
+    .then(function(answers) {
+        let name = answers.engineerName;
+        let id = answers.engineerId;
+        let email = answers.engineerEmail;
+        let github = answers.engineerGithub;
+        let engineer = new Engineer(name, id, email, github);
+        teamList.push(engineer);
+        memberPrompt();
+},
 
 function internPrompt() {
     inquirer.prompt(
@@ -94,14 +103,46 @@ function internPrompt() {
             },
         ]
     )
-}
+    .then(function(answers) {
+        let name = answers.internName;
+        let id = answers.internId;
+        let email = answers.internEmail;
+        let school = answers.internSchool;
+        let intern = new Intern(name, id, email, school);
+        teamList.push(intern);
+        memberPrompt();
+    })
+},
 
 function memberPrompt() {
     inquirer.prompt(
         [
             {
-
+                type: "list",
+                name: "newMember",
+                message: "Are there any other team members?",
+                choices: ["Add Engineer", "Add Intern", "No, finish building my team!"],
             }
         ]
     )
-}
+    .then(memberPrompt => {
+        if (memberPrompt.newMember === 'Add Engineer') {
+            engineerPrompt();
+        } else if (memberPrompt.newMember === 'Add Intern') {
+            internPrompt();
+        } else if (memberPrompt.newMember === 'No, finish building my team!') {
+            createProfile();
+        }
+    })
+},
+
+// function createProfile() {
+//     const html =
+// },
+
+// function init() {
+//     managerPrompt();
+// },
+
+//fs.writeFile(`./)
+//init();
