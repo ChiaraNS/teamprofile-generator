@@ -76,7 +76,8 @@ function engineerPrompt() {
         let engineer = new Engineer(name, id, email, github);
         teamList.push(engineer);
         memberPrompt();
-},
+    })
+}
 
 function internPrompt() {
     inquirer.prompt(
@@ -112,7 +113,7 @@ function internPrompt() {
         teamList.push(intern);
         memberPrompt();
     })
-},
+}
 
 function memberPrompt() {
     inquirer.prompt(
@@ -134,11 +135,11 @@ function memberPrompt() {
             createProfile();
         }
     })
-},
+}
 
-// function createProfile() {
-//     const html =
-// },
+function createProfile() {
+    const html = 
+},
 
 // function init() {
 //     managerPrompt();
