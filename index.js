@@ -212,11 +212,11 @@ function endProfile() {
     </html>`
 };
 
-function createProfile(data) {
+function createProfile(teamList) {
     beginProfile();
     
-    for (let i = 0; i < data.length; i++) {
-        const position = data[i];
+    for (let i = 0; i < teamList.length; i++) {
+        const position = teamList[i];
         const member = memberPrompt.newMember();
         
         teamList.push(managerHtml)(position);
