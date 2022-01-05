@@ -158,13 +158,7 @@ function beginProfile() {
         </div>
         
         <div class="container">`;
-        // fs.writeFile("./dist/index.html", html, function(err) {
-        //     if (err) {
-        //         console.log(err);
-        //     }
-        // });
-        // console.log("begin");
-}
+};
 
 function managerHtml(manager) {
     return `
@@ -209,10 +203,40 @@ function internHtml(intern) {
         <h4 class="list-group-item">School: ${intern.getSchool()}</h4>
     </div>
 </div>`
-}
-// function init() {
-//     managerPrompt();
-// },
+};
 
-//fs.writeFile(`./)
-//init();
+function endProfile() {
+    return `
+    </div>
+    </body>
+    </html>`
+};
+
+function createProfile(data) {
+    beginProfile();
+    
+    for (let i = 0; i < data.length; i++) {
+        const position = data[i];
+        const member = memberPrompt.newMember();
+        
+        teamList.push(managerHtml)(position);
+
+        if (member === "Add Engineer") {
+            teamList.push(engineerHtml(position));
+        }
+        if (member === "Add Intern") {
+            teamList.push(internHtml(position));
+        }
+
+    }
+    endProfile();
+
+    fs.writeFile(`./dist/index.html`, teamList.join(""), function(err) {
+        if(err) {
+            console.log(err);
+        }
+    });
+};
+
+
+managerPrompt();
