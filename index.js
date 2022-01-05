@@ -138,7 +138,27 @@ function memberPrompt() {
 }
 
 function createProfile() {
-    const html = 
+    const html = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Team Profiles</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha256-YvdLHPgkqJ8DVUxjjnGVlMMJtNimJ6dYkowFFvp4kKs=" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 mb-4 jumbotron">
+                    <h1 class="text-center">My Team</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">`;
+        fs.writeFile()
 },
 
 // function init() {
