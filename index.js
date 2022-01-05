@@ -137,8 +137,8 @@ function memberPrompt() {
     })
 }
 
-function createProfile() {
-    const html = `<!DOCTYPE html>
+function beginProfile() {
+    return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -158,9 +158,58 @@ function createProfile() {
         </div>
         
         <div class="container">`;
-        fs.writeFile()
-},
+        // fs.writeFile("./dist/index.html", html, function(err) {
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        // });
+        // console.log("begin");
+}
 
+function managerHtml(manager) {
+    return `
+    <div class="row card col-4">
+    <div class="card-header text-center">
+        <h2 class="card-title">${manager.getName()}</h2>
+        <h3 class="card-title">${manager.getRole()}</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="list-group-item">ID: ${manager.getId()}</h4>
+        <h4 class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></h4>
+        <h4 class="list-group-item">Office #: ${manager.getOfficeNumber()}</h4>
+    </div>
+</div>`
+};
+
+function engineerHtml(engineer) {
+    return ` 
+    <div class="row card col-4">
+    <div class="card-header text-center">
+        <h2 class="card-title">${engineer.getName()}</h2>
+        <h3 class="card-title">${engineer.getRole()}</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="list-group-item">ID: ${engineer.getId()}</h4>
+        <h4 class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></h4>
+        <h4 class="list-group-item">Github: <a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></h4>
+    </div>
+</div>`
+};
+
+function internHtml(intern) {
+    return `
+    <div class="row card col-4">
+    <div class="card-header text-center">
+        <h2 class="card-title">${intern.getName()}</h2>
+        <h3 class="card-title">${intern.getRole()}</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="list-group-item">ID: ${intern.getId()}</h4>
+        <h4 class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></h4>
+        <h4 class="list-group-item">School: ${intern.getSchool()}</h4>
+    </div>
+</div>`
+}
 // function init() {
 //     managerPrompt();
 // },
