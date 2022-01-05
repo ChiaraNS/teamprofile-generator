@@ -1,10 +1,10 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-//const Employee = require("./lib/employee");
+const Employee = require("./lib/employee");
 const Engineer = require("./lib/engineer");
 const Manager = require("./lib/manager");
 const Intern = require("./lib/intern");
-const teamList = [];
+let teamList = [];
 
 
 function managerPrompt() {
@@ -123,7 +123,7 @@ function memberPrompt() {
                 name: "newMember",
                 message: "Are there any other team members?",
                 choices: ["Add Engineer", "Add Intern", "No, finish building my team!"],
-            }
+            },
         ]
     )
     .then(memberPrompt => {
@@ -137,8 +137,109 @@ function memberPrompt() {
     })
 }
 
-function beginProfile() {
-    return `<!DOCTYPE html>
+// function beginProfile() {
+//     return `<!DOCTYPE html>
+//     <html lang="en">
+//     <head>
+//         <meta charset="UTF-8">
+//         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+//         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//         <title>Team Profiles</title>
+//         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha256-YvdLHPgkqJ8DVUxjjnGVlMMJtNimJ6dYkowFFvp4kKs=" crossorigin="anonymous">
+//         <link rel="stylesheet" href="style.css">
+//     </head>
+//     <body>
+//         <div class="container-fluid">
+//             <div class="row">
+//                 <div class="col-12 mb-4 jumbotron">
+//                     <h1 class="text-center">My Team</h1>
+//                 </div>
+//             </div>
+//         </div>
+        
+//         <div class="container">`;
+// };
+
+function managerHtml(Manager) {
+    return `
+    <div class="row card col-4">
+    <div class="card-header text-center">
+        <h2 class="card-title">${Manager.getName()}</h2>
+        <h3 class="card-title">${Manager.getRole()}</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="list-group-item">ID: ${Manager.getId()}</h4>
+        <h4 class="list-group-item">Email: <a href="mailto:${Manager.getEmail()}">${Manager.getEmail()}</a></h4>
+        <h4 class="list-group-item">Office #: ${Manager.getOfficeNumber()}</h4>
+    </div>
+</div>`
+};
+
+function engineerHtml(Engineer) {
+    return ` 
+    <div class="row card col-4">
+    <div class="card-header text-center">
+        <h2 class="card-title">${Engineer.getName()}</h2>
+        <h3 class="card-title">${Engineer.getRole()}</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="list-group-item">ID: ${Engineer.getId()}</h4>
+        <h4 class="list-group-item">Email: <a href="mailto:${Engineer.getEmail()}">${Engineer.getEmail()}</a></h4>
+        <h4 class="list-group-item">Github: <a href="https://github.com/${Engineer.getGithub()}" target="_blank">${Engineer.getGithub()}</a></h4>
+    </div>
+</div>`
+};
+
+function internHtml(Intern) {
+    return `
+    <div class="row card col-4">
+    <div class="card-header text-center">
+        <h2 class="card-title">${Intern.getName()}</h2>
+        <h3 class="card-title">${Intern.getRole()}</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="list-group-item">ID: ${Intern.getId()}</h4>
+        <h4 class="list-group-item">Email: <a href="mailto:${Intern.getEmail()}">${Intern.getEmail()}</a></h4>
+        <h4 class="list-group-item">School: ${Intern.getSchool()}</h4>
+    </div>
+</div>`
+};
+
+// function endProfile() {
+//     return `
+//     </div>
+//     </body>
+//     </html>`
+// };
+
+// function createProfile(teamList) {
+//     beginProfile();
+    
+//     for (let i = 0; i < teamList.length; i++) {
+//         const position = teamList[i];
+//         const member = memberPrompt.newMember();
+        
+//         teamList.push(managerHtml)(position);
+
+//         if (member === "Add Engineer") {
+//             teamList.push(engineerHtml(position));
+//         }
+//         if (member === "Add Intern") {
+//             teamList.push(internHtml(position));
+//         }
+
+//     }
+//     endProfile();
+
+//     fs.writeFile(`./dist/index.html`, teamList.join(""), function(err) {
+//         if(err) {
+//             console.log(err);
+//         }
+//     });
+// };
+
+function createProfile() {
+    let beginProfile = `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -158,78 +259,27 @@ function beginProfile() {
         </div>
         
         <div class="container">`;
-};
-
-function managerHtml(manager) {
-    return `
-    <div class="row card col-4">
-    <div class="card-header text-center">
-        <h2 class="card-title">${manager.getName()}</h2>
-        <h3 class="card-title">${manager.getRole()}</h3>
-    </div>
-    <div class="card-body">
-        <h4 class="list-group-item">ID: ${manager.getId()}</h4>
-        <h4 class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></h4>
-        <h4 class="list-group-item">Office #: ${manager.getOfficeNumber()}</h4>
-    </div>
-</div>`
-};
-
-function engineerHtml(engineer) {
-    return ` 
-    <div class="row card col-4">
-    <div class="card-header text-center">
-        <h2 class="card-title">${engineer.getName()}</h2>
-        <h3 class="card-title">${engineer.getRole()}</h3>
-    </div>
-    <div class="card-body">
-        <h4 class="list-group-item">ID: ${engineer.getId()}</h4>
-        <h4 class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></h4>
-        <h4 class="list-group-item">Github: <a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></h4>
-    </div>
-</div>`
-};
-
-function internHtml(intern) {
-    return `
-    <div class="row card col-4">
-    <div class="card-header text-center">
-        <h2 class="card-title">${intern.getName()}</h2>
-        <h3 class="card-title">${intern.getRole()}</h3>
-    </div>
-    <div class="card-body">
-        <h4 class="list-group-item">ID: ${intern.getId()}</h4>
-        <h4 class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></h4>
-        <h4 class="list-group-item">School: ${intern.getSchool()}</h4>
-    </div>
-</div>`
-};
-
-function endProfile() {
-    return `
-    </div>
-    </body>
-    </html>`
-};
-
-function createProfile(teamList) {
-    beginProfile();
-    
-    for (let i = 0; i < teamList.length; i++) {
-        const position = teamList[i];
-        const member = memberPrompt.newMember();
         
-        teamList.push(managerHtml)(position);
+    teamList.push(beginProfile);
+    
+    managerHtml();
 
+    for (let i = 0; i < teamList.length; i++) {
+        const member = Employee.getRole();
+           
         if (member === "Add Engineer") {
-            teamList.push(engineerHtml(position));
+            engineerHtml(Employee);
         }
         if (member === "Add Intern") {
-            teamList.push(internHtml(position));
+            internHtml(Employee);
         }
-
     }
-    endProfile();
+        
+    let endProfile = `</div>
+    </body>
+    </html>`;
+
+    teamList.push(endProfile);
 
     fs.writeFile(`./dist/index.html`, teamList.join(""), function(err) {
         if(err) {
@@ -237,6 +287,5 @@ function createProfile(teamList) {
         }
     });
 };
-
 
 managerPrompt();
